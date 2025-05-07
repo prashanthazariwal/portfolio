@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/NavBar";
 import { Outlet } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Footer from "./components/Footer";
+import LocomotiveScroll from "locomotive-scroll";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -53,19 +55,27 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    const scroll = new LocomotiveScroll();
+    return () => scroll.destroy();
+  }, []);
+
   return (
-    <>
+    <ErrorBoundary>
       {loading && (
         <div className="h-screen relative overflow-hidden">
           <div className="loader h-screen w-full bg-black flex flex-col gap-64 items-center absolute top-0 right-0">
-            <div className="loader-top text-white w-full h-fit overflow-hidden text-center text-sm font-semibold mt-4 capitalize">
+            <div className="loader-top text-white w-full h-fit overflow-hidden text-center text-sm font-normal mt-4 capitalize font-ComicReliefRegular">
               <h5>design portfolio</h5>
-              <h5>&copy; 2024</h5>
+              <h5 className="mt-1">&copy; 2025</h5>
             </div>
             <div className=" text-white overflow-hidden ">
-              <div className="loader-center text-6xl text-center w-fit overflow-hidden">
+              <div className="loader-center  md:text-6xl text-3xl font-semibold text-center w-fit overflow-hidden font-Raleway">
                 Prashant{" "}
-                <span className="text-green-600 italic">hazariwal</span> is a
+                <span className="text-green-600 italic font-ComicReliefRegular">
+                  hazariwal
+                </span>{" "}
+                is a
               </div>
             </div>
             <div className="green-div absolute top-full h-full w-full bg-green-300 "></div>
@@ -73,15 +83,17 @@ function App() {
         </div>
       )}
       {!loading && (
-        <>
+        <div className="bg-neutral-100 min-h-screen flex flex-col">
           <NavBar />
-          <div className="w-3/5 px-4 overflow-hidden mx-auto">
-          <Outlet />
-          </div>
-         
-        </>
+          <main className="flex-grow">
+            <div className="relative w-full md:w-4/6 px-4 overflow-hidden md:mx-auto">
+              <Outlet />
+            </div>
+          </main>
+          <Footer />
+        </div>
       )}
-    </>
+    </ErrorBoundary>
   );
 }
 
