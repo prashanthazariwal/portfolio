@@ -2,7 +2,7 @@ import React from "react";
 import About from "../sections/About";
 import profile1Img from "../assets/images/profile.png";
 import parallax from "../assets/images/parallaxLogo.png";
-import BrandingKiteLogo from "../assets/images/BrandingKiteLogo.jpg";
+import BrandingKiteLogo from "../assets/images/brandingKiteLogo.jpg";
 import BlurCircle from "../components/BlurCircle";
 import Contact from "../sections/Contact";
 import ExperienceCard from "../components/ExperienceCard";
