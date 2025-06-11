@@ -1,17 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { delay } from "motion";
+import SeeAllButton from "../components/SeeAllButton";
+import Projects from "../components/Projects";
 
-const ProjectSection = () => {
+const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end 0.3"],
+    offset: ["start end", "end 0.7"],
   });
 
+  const [hovered, setHovered] = useState(null);
   const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const transformByX = useTransform(scrollYProgress, [0, 0.1], [-20, 0]);
-  const lineWidth = useTransform(scrollYProgress, [0, 0.1], ["0%", "100%"]);
+  const transformByY = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const lineWidth = useTransform(scrollYProgress, [0, 0.7], ["0%", "100%"]);
 
   const projects = [
     {
@@ -22,13 +26,14 @@ const ProjectSection = () => {
       tack: [
         "react",
         "javascript",
-        "html",
-        "css",
+        // "html",
+        // "css",
         "tailwind-css",
         "gsap",
         "Motion-for-react",
-        "react-native",
+        // "react-native",
       ],
+      url: "https://travel-website-delta-blond.vercel.app/",
     },
     {
       projectName: "obeys agency clone",
@@ -36,67 +41,64 @@ const ProjectSection = () => {
       discription:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit.Exercitationem amet dicta ipsam eius esse placeat dolores temporibus minima quo vel necessitatibus aspernatur eveniet libero officiis eum, assumenda maiores in porro. ",
       tack: [
-        "react",
+        // "react",
         "javascript",
         "html",
         "css",
-        "tailwind-css",
+        // "tailwind-css",
         "gsap",
-        "Motion-for-react",
-        "react-native",
+        // "Motion-for-react",
+        // "react-native",
       ],
+      url: "https://obeys-agency-clone-phi.vercel.app/",
+    },
+    {
+      projectName: "Two Good CO",
+      title: "creative-agency",
+      discription:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Exercitationem amet dicta ipsam eius esse placeat dolores temporibus minima quo vel necessitatibus aspernatur eveniet libero officiis eum, assumenda maiores in porro. ",
+      tack: [
+        // "react",
+        "javascript",
+        "html",
+        "css",
+        // "tailwind-css",
+        "gsap",
+        // "Motion-for-react",
+        // "react-native",
+      ],
+      url: "https://two-good-co.vercel.app/",
     },
   ];
+
+  // Filter projects based on selected category
+  const filteredProjects = projects.filter((project) => {
+    if (selectedCategory === "all") return true;
+    if (selectedCategory === "html-css") {
+      return project.tack.includes("html") && project.tack.includes("css");
+    }
+    return project.tack.includes(selectedCategory);
+  });
+
   return (
     <>
-      <div className="w-full h-fit mt-8 md:mt-0 flex justify-between px-4 font-Montserrat">
-        <h4 className="text-sm font-semibold uppercase text-neutral-800">
+      <div className="flex justify-between w-full px-4 mt-8 h-fit md:mt-0 font-Montserrat">
+        <h4 className="text-sm font-semibold uppercase text-neutral-800 dark:text-neutral-100">
           projects
         </h4>
-        <button className="text-sm font-semibold uppercase text-neutral-800 ">
-          see all
-        </button>
+
+        <SeeAllButton className={"dark:text-neutral-100"} text={"see all"} />
       </div>
-      <div className="w-full py-10  overflow-hidden">
-        {projects.map((project) => (
-          <div className="" ref={ref} key={project.projectName}>
-            <motion.div
-              style={{
-                opacity,
-                width: lineWidth,
-              }}
-              className="border-t border-neutral-900"
-            ></motion.div>
-            <div className="w-full py-4 flex flex-col md:flex-row justify-between">
-              <motion.h2
-                style={{
-                  opacity,
-                  x: transformByX,
-                }}
-                className="self-start w-fit md:max-w-[30%] max-w-full ml-4 md:ml-0 text-4xl font-semibold font-Raleway uppercase"
-              >
-                {project.projectName} <br />{" "}
-                <span className="text-lg font-medium">{project.title}</span>
-              </motion.h2>
-              <div className="project-discription min-h-[15rem] flex flex-col gap-6 justify-between items-center py-2 w-full md:w-2/3">
-                <div className="techUsed-container w-full md:min-w-[80%] md:w-4/5 mx-auto p-2 flex  flex-wrap gap-3">
-                  {project.tack.map((tack, i) => {
-                    return (
-                      <span
-                        key={i}
-                        className="inline-block w-fit h-fit px-4 py-1 rounded-full text-black border-black border"
-                      >
-                        {tack}
-                      </span>
-                    );
-                  })}
-                </div>
-                <p className="w-full mb-6 md:w-4/5 mx-auto">{project.discription}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <motion.div ref={ref} className="w-full py-10 overflow-hidden ">
+        <Projects
+          projects={filteredProjects}
+          spliceValue={spliceValue}
+          setHovered={setHovered}
+          hovered={hovered}
+          opacity={opacity}
+          lineWidth={lineWidth}
+        />
+      </motion.div>
     </>
   );
 };

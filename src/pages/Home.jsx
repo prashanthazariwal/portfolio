@@ -3,6 +3,8 @@ import Hero from "../sections/Hero";
 import About from "../sections/About";
 import TackStack from "../sections/TackStack";
 import ProjectSection from "../sections/ProjectSection";
+import Review from "../sections/Review";
+import Contact from "../sections/Contact";
 
 const Home = () => {
   return (
@@ -10,7 +12,9 @@ const Home = () => {
       <Hero />
       <TackStack />
       <About />
-      <ProjectSection />
+      <ProjectSection spliceValue={2} />
+      <Review />
+      <Contact />
     </>
   );
 };

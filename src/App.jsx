@@ -7,10 +7,13 @@ import gsap from "gsap";
 import Footer from "./components/Footer";
 import LocomotiveScroll from "locomotive-scroll";
 import ErrorBoundary from "./components/ErrorBoundary";
+import useScrollToTop from "./hooks/useScrollToTop";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  useScrollToTop();
 
   useEffect(() => {
     // Simulate a loading delay (e.g., fetching data)
@@ -24,9 +27,9 @@ function App() {
     let tl = gsap.timeline();
 
     tl.from(".loader-center", {
-      x: 100,
+      x: 250,
       delay: 0.3,
-      duration: 0.4,
+      duration: 0.5,
     });
     tl.to(".loader-top", {
       opacity: 0,
@@ -62,35 +65,54 @@ function App() {
 
   return (
     <ErrorBoundary>
+      <Helmet>
+        <html lang="en" />
+        <title>Prashant Hazariwal - Portfolio</title>
+        <meta
+          name="description"
+          content="Portfolio website of Prashant Hazariwal - Web Developer and Designer"
+        />
+        <meta
+          name="keywords"
+          content="web developer, designer, portfolio, Prashant Hazariwal, frontend developer"
+        />
+        <meta property="og:title" content="Prashant Hazariwal - Portfolio" />
+        <meta
+          property="og:description"
+          content="Portfolio website of Prashant Hazariwal - Web Developer and Designer"
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://prashant-hazariwal.vercel.app" />
+      </Helmet>
       {loading && (
-        <div className="h-screen relative overflow-hidden">
-          <div className="loader h-screen w-full bg-black flex flex-col gap-64 items-center absolute top-0 right-0">
-            <div className="loader-top text-white w-full h-fit overflow-hidden text-center text-sm font-normal mt-4 capitalize font-ComicReliefRegular">
+        <div className="relative h-screen overflow-hidden">
+          <div className="absolute top-0 right-0 flex flex-col items-center w-full h-screen gap-64 bg-black loader">
+            <div className="w-full mt-4 overflow-hidden text-sm font-normal text-center text-white capitalize loader-top h-fit font-ComicReliefRegular">
               <h5>design portfolio</h5>
               <h5 className="mt-1">&copy; 2025</h5>
             </div>
-            <div className=" text-white overflow-hidden ">
-              <div className="loader-center  md:text-6xl text-3xl font-semibold text-center w-fit overflow-hidden font-Raleway">
+            <div className="overflow-hidden text-white ">
+              <div className="overflow-hidden text-3xl font-semibold text-center loader-center md:text-6xl w-fit font-Raleway">
                 Prashant{" "}
-                <span className="text-green-600 italic font-ComicReliefRegular">
+                <span className="mr-2 italic text-green-600 font-ComicReliefRegular">
                   hazariwal
                 </span>{" "}
-                is a
               </div>
             </div>
-            <div className="green-div absolute top-full h-full w-full bg-green-300 "></div>
+            <div className="absolute w-full h-full bg-green-300 green-div top-full "></div>
           </div>
         </div>
       )}
       {!loading && (
-        <div className="bg-neutral-100 min-h-screen flex flex-col">
+        <div className="flex flex-col min-h-screen transition-colors duration-300 bg-neutral-100 dark:bg-neutral-900">
           <NavBar />
           <main className="flex-grow">
-            <div className="relative w-full md:w-4/6 px-4 overflow-hidden md:mx-auto">
+            <div className="relative w-full px-4 overflow-hidden lg:w-4/6 md:w-5/6 md:mx-auto">
               <Outlet />
             </div>
+            <Footer />
           </main>
-          <Footer />
         </div>
       )}
     </ErrorBoundary>

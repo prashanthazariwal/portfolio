@@ -8,12 +8,15 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 
 import LocomotiveScroll from "locomotive-scroll";
 import Chalendar from "./components/Chalendar/Chalendar.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Home from "./pages/Home.jsx";
 import Work from "./pages/Work.jsx";
+import { Toaster } from "react-hot-toast";
+import AboutPage from "./pages/AboutPage.jsx";
 
 const locomotiveScroll = new LocomotiveScroll();
 
@@ -22,7 +25,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="home" element={<Home />} />
-      <Route path="about" element={<h2>about</h2>} />
+      <Route path="about" element={<AboutPage />} />
       <Route path="Shedular" element={<Chalendar />} />
       <Route path="work" element={<Work />} />
       <Route path="*" element={<ErrorPage />} />
@@ -32,6 +35,9 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+      <Toaster />
+    </HelmetProvider>
   </React.StrictMode>
 );

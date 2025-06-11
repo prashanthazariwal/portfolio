@@ -1,8 +1,59 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { motion } from "motion/react";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 
 const NavBar = () => {
+  const [hovered, setHovered] = useState(null);
+  const [scroll, setScrolled] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const location = useLocation();
+
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // console.log("latest-->",latest)
+    if (latest > 20) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  });
+
+  // Scroll to top on navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <>
       {/* navbar */}
@@ -14,27 +65,35 @@ const NavBar = () => {
         animate={{
           y: 0,
           opacity: 1,
+          width: windowWidth > 768 ? (scroll ? "60%" : "66.666667%") : "100%",
         }}
         transition={{
           duration: 0.3,
           ease: "easeInOut",
         }}
-        className="h-fit py-2 md:w-3/5 w-full  z-50 md:mx-auto px-5 flex justify-center md:justify-between  items-center sticky inset-0 "
+        className="sticky inset-0 z-50 flex items-center justify-between w-full px-3 py-2 h-fit lg:w-4/6 md:w-5/6 md:mx-auto md:px-5"
+        role="navigation"
+        aria-label="Main navigation"
       >
-        {/* <div className="w-full h-full bg-neutral-200 absolute inset-0 blur-lg -z-10"></div> */}
-        <div className=" nav hidden z-50 bg-neutral-100 px-2 py-1 w-fit rounded-xl h-10 md:flex justify-center items-center text-sm font-bold shadow-md">
+        <div className="z-50 items-center justify-center h-10 px-2 py-1 text-sm font-bold shadow-md nav bg-neutral-100 dark:bg-neutral-800 w-fit rounded-xl md:flex">
           <NavLink
             to="home"
+            aria-label="Home page"
             className={({ isActive }) => {
               return `${
-                isActive ? "nav text-sm font-bold" : "nav text-sm font-semibold"
+                isActive
+                  ? "nav text-sm font-bold text-neutral-900 dark:text-white"
+                  : "nav text-sm font-semibold text-neutral-600 dark:text-white"
               }`;
             }}
           >
-            <svg
+            <motion.svg
+              whileTap={{
+                scale: 0.95,
+              }}
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -47,41 +106,146 @@ const NavBar = () => {
               <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
               <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
               <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-            </svg>
+            </motion.svg>
           </NavLink>
         </div>
-        <div className="flex w-fit justify-center bg-neutral-100 shadow-md font-Montserrat z-[999] bg-opacity-100 rounded-xl px-2 items-center gap-1 ">
+        <div className="flex w-fit justify-center bg-neutral-100 dark:bg-neutral-800 shadow-md font-Montserrat z-[999] bg-opacity-100 rounded-xl px-2 items-center gap-1">
           {[
             { to: "work" },
             { to: "about" },
-            { to: "event" },
-            { to: "contact" },
-          ].map((elm, index) => (
-            <NavLink
-              key={index}
-              to={elm.to}
-              className={({ isActive }) => {
-                return `${
-                  isActive
-                    ? "nav text-sm font-bold text-neutral-900"
-                    : "nav text-sm font-semibold text-neutral-600"
-                } mix-blend-multiply w-16`;
-              }}
-            >
-              <motion.div
-                whileHover={{
-                  scale: 1.1,
+            { to: "event", className: "hidden md:flex" },
+            { to: "#contact", isAnchor: true },
+          ].map((elm, index) =>
+            elm.isAnchor ? (
+              <a
+                key={index}
+                href={elm.to}
+                className="relative w-16 text-xs font-semibold nav text-neutral-600 dark:text-white"
+                onMouseEnter={() => setHovered(index)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .querySelector(elm.to)
+                    .scrollIntoView({ behavior: "smooth" });
                 }}
-                transition={{
-                  duration: 0.2,
-                  ease: "easeInOut",
-                }}
-                className="w-full h-full flex items-center justify-center py-2 capitalize"
               >
-                {elm.to}
-              </motion.div>
-            </NavLink>
-          ))}
+                {hovered == index && (
+                  <motion.span
+                    layoutId="nav-bg"
+                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-200 dark:bg-neutral-700"
+                  ></motion.span>
+                )}
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                  }}
+                  onTap={() => {
+                    setHovered(index);
+                    setTimeout(() => setHovered(null), 300);
+                  }}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeInOut",
+                  }}
+                  className="z-10 flex items-center justify-center w-full h-full py-2 capitalize text-neutral-900 dark:text-white"
+                >
+                  {elm.to.replace("#", "")}
+                </motion.div>
+              </a>
+            ) : (
+              <NavLink
+                key={index}
+                to={elm.to}
+                className={({ isActive }) => {
+                  return `${
+                    isActive
+                      ? "nav text-xs font-bold text-neutral-900 dark:text-white"
+                      : "nav text-xs font-semibold text-neutral-600 dark:text-white"
+                  } w-16 relative ${elm.className || ""}`;
+                }}
+                onMouseEnter={() => setHovered(index)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                {hovered == index && (
+                  <motion.span
+                    layoutId="nav-bg"
+                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-200 dark:bg-neutral-700"
+                  ></motion.span>
+                )}
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                  }}
+                  onTap={() => {
+                    setHovered(index);
+                    setTimeout(() => setHovered(null), 300);
+                  }}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeInOut",
+                  }}
+                  className="z-10 flex items-center justify-center w-full h-full py-2 capitalize text-neutral-900 dark:text-white"
+                >
+                  {elm.to}
+                </motion.div>
+              </NavLink>
+            )
+          )}
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleDarkMode}
+            className="p-2 transition-colors rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700"
+            aria-label={
+              isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            {isDarkMode ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-yellow-400"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-neutral-700"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+            )}
+          </motion.button>
         </div>
       </motion.div>
     </>
