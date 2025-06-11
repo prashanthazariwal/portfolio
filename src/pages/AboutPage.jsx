@@ -1,8 +1,5 @@
 import React from "react";
 import About from "../sections/About";
-import profile1Img from "@/assets/images/profile.png";
-import parallax from "@/assets/images/parallaxLogo.png";
-import brandingKiteLogo from "@/assets/images/brandingKitelogo.jpg";
 import BlurCircle from "../components/BlurCircle";
 import Contact from "../sections/Contact";
 import ExperienceCard from "../components/ExperienceCard";
@@ -36,7 +33,7 @@ const AboutPage = () => {
   const brandingKiteData = {
     title: "Brandingkite",
     subtitle: "full-service digital marketing agency",
-    logo: brandingKiteLogo,
+    logo: "/images/brandingKitelogo.jpg",
     isReversed: true,
     experiences: [
       {
@@ -57,7 +54,7 @@ const AboutPage = () => {
   const parallaxData = {
     title: "Parallax India",
     subtitle: "Parallax India is a creative agency",
-    logo: parallax,
+    logo: "/images/parallaxLogo.png",
     experiences: [
       {
         role: "Frontend Development Intern",
@@ -122,7 +119,7 @@ const AboutPage = () => {
               className={"-top-[40%] dark:bg-neutral-800 -left-20  bg-white"}
             />
             <img
-              src={profile1Img}
+              src="/images/profile.png"
               alt="Profile"
               className="relative z-20 object-cover w-full h-full rounded-xl"
             />
