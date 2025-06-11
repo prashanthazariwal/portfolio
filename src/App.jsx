@@ -83,7 +83,10 @@ function App() {
         />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://prashant-hazariwal.vercel.app" />
+        <link
+          rel="canonical"
+          href="https://portfolio-pink-nine-80.vercel.app/"
+        />
       </Helmet>
       {loading && (
         <div className="relative h-screen overflow-hidden">
