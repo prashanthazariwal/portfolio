@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { motion } from "motion/react";
 import BlurCircle from "../components/BlurCircle";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Contact = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -58,10 +60,20 @@ const Contact = () => {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
-      // Here you can add your API call to store the data
-      // For example:
-      // await axios.post('/api/contact', formData);
+      await emailjs.send(
+        "service_xsvz73p",
+        "template_0rqdeie",
+        {
+          title: "New Contact Form Submission",
+          name: formData.name,
+          message: formData.message,
+          email: formData.email,
+        },
+        "a4wOHhNXjyxIccb9J"
+      );
 
       toast.success("Message successfully bheja gaya!");
       setFormData({
@@ -70,7 +82,10 @@ const Contact = () => {
         message: "",
       });
     } catch (error) {
+      console.error("Error:", error);
       toast.error("Kuch error aa gaya, please try again");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -199,6 +214,14 @@ const Contact = () => {
               </span>
             )}
           </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="px-4 py-2 mt-4 text-white transition-all bg-black rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "Bhej raha hoon..." : "Message Bhejo"}
+          </button>
         </form>
       </div>
     </div>

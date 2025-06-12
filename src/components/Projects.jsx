@@ -133,7 +133,7 @@ const Projects = ({
                   stiffness: 200,
                   damping: 20,
                 }}
-                className="z-10 w-full mb-6 text-sm font-normal text-justify font-Raleway text-neutral-600 dark:text-neutral-100 md:w-4/5"
+                className="z-10 w-full mb-6 text-sm font-medium text-justify font-Raleway text-neutral-600 dark:text-neutral-100 md:w-4/5"
               >
                 {project.discription}
               </motion.p>

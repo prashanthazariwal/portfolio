@@ -18,8 +18,11 @@ const Footer = () => {
   const socialLinks = [
     // { icon: <FaFacebook />, url: "#" },
     // { icon: <FaTwitter />, url: "#" },
-    { icon: <FaInstagram />, url: "#" },
-    { icon: <FaGithub />, url: "#" },
+    {
+      icon: <FaInstagram />,
+      url: "https://www.instagram.com/prashant.hazariwal/",
+    },
+    { icon: <FaGithub />, url: "https://github.com/prashanthazariwal" },
     {
       icon: <FaLinkedin />,
       url: "https://www.linkedin.com/in/prashant-hazariwal-71374b212/",

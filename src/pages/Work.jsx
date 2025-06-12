@@ -97,7 +97,7 @@ const Work = () => {
 
   return (
     <div className="">
-      <div className="flex items-center relative justify-center w-full h-[25dvh] md:h-[90vh] leading-none aboutProjects">
+      <div className="flex items-center relative justify-center w-full h-[45dvh] md:h-[90vh] leading-none aboutProjects">
         {images.map(
           (img, idx) =>
             img.isActive && (
@@ -106,7 +106,7 @@ const Work = () => {
                 transition={{
                   ease: "easeInOut",
                 }}
-                className="absolute z-30 h-40 overflow-hidden -translate-x-1 -translate-y-1/2 border shadow-lg opacity-0 w-52 rounded-xl "
+                className="absolute z-30 w-32 h-20 overflow-hidden -translate-x-1 -translate-y-1/2 border shadow-lg opacity-0 md:h-40 md:w-52 rounded-xl "
               >
                 <img
                   key={idx}

@@ -159,8 +159,8 @@ const Review = () => {
               <div className="relative flex flex-col justify-between w-full h-full p-3 overflow-hidden rounded-xl backdrop-blur-md group">
                 <div className="absolute inset-0 w-full h-full transition-opacity duration-300 opacity-100 bg-neutral-100/50 dark:bg-neutral-900 -z-10"></div>
                 <img
-                  src=""
-                  className="bg-red-300 border rounded-full w-14 h-14"
+                  src="/images/dummyUser.png"
+                  className="border rounded-full dark:bg-neutral-100 w-14 h-14"
                   alt=""
                 />
                 <p

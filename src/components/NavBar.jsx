@@ -133,7 +133,7 @@ const NavBar = () => {
                 {hovered == index && (
                   <motion.span
                     layoutId="nav-bg"
-                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-200 dark:bg-neutral-700"
+                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-100 dark:bg-neutral-700"
                   ></motion.span>
                 )}
                 <motion.div

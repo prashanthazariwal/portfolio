@@ -22,7 +22,7 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
       projectName: "To-Go",
       title: "travel your dream place",
       discription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Exercitationem amet dicta ipsam eius esse placeat dolores temporibus minima quo vel necessitatibus aspernatur eveniet libero officiis eum, assumenda maiores in porro. ",
+        "A fully responsive flight booking application where users can fill out a form to request a booking. The admin panel (with login authentication) displays user submissions in a dynamic table, enabling further follow-up. Used Formik with Yup for form handling and validation, Redux for state management, and LocalStorage for data persistence. Smooth, modern UI animations powered by GSAP. Built entirely from scratch to showcase full-stack logic and frontend proficiency.",
       tack: [
         "react",
         "javascript",
@@ -39,7 +39,7 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
       projectName: "obeys agency clone",
       title: "creative-agency",
       discription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Exercitationem amet dicta ipsam eius esse placeat dolores temporibus minima quo vel necessitatibus aspernatur eveniet libero officiis eum, assumenda maiores in porro. ",
+        "A high-fidelity frontend clone of the Obeys Agency website, built to showcase advanced UI/UX techniques. Implemented smooth scrolling using Locomotive Scroll, seamless animations with GSAP, and dynamic interactions with Shery.js. This project highlights attention to design detail and modern frontend animation practices using pure JavaScript, HTML, and CSS—no frameworks involved. ",
       tack: [
         // "react",
         "javascript",
@@ -56,7 +56,7 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
       projectName: "Two Good CO",
       title: "creative-agency",
       discription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Exercitationem amet dicta ipsam eius esse placeat dolores temporibus minima quo vel necessitatibus aspernatur eveniet libero officiis eum, assumenda maiores in porro. ",
+        "A pixel-perfect clone of the Two Good Co website, recreated to demonstrate strong design aesthetics and animation skills. The project features smooth scrolling with Locomotive Scroll and elegant UI animations using GSAP. Developed using only HTML, CSS, and vanilla JavaScript to faithfully reproduce a modern, award-winning design experience. ",
       tack: [
         // "react",
         "javascript",
