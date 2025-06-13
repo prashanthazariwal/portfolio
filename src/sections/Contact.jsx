@@ -18,19 +18,19 @@ const Contact = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Naam zaroori hai";
+      newErrors.name = "Name is required";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email zaroori hai";
+      newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Valid email address daalo";
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Message zaroori hai";
+      newErrors.message = "Message is required";
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message kam se kam 10 characters ka hona chahiye";
+      newErrors.message = "Message must be at least 10 characters long";
     }
 
     setErrors(newErrors);
@@ -56,7 +56,7 @@ const Contact = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      toast.error("Kuch errors hain, please check karein");
+      toast.error("Please check for errors");
       return;
     }
 
@@ -75,7 +75,7 @@ const Contact = () => {
         "a4wOHhNXjyxIccb9J"
       );
 
-      toast.success("Message successfully bheja gaya!");
+      toast.success("Message sent successfully!");
       setFormData({
         name: "",
         email: "",
@@ -83,7 +83,7 @@ const Contact = () => {
       });
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Kuch error aa gaya, please try again");
+      toast.error("Something went wrong, please try again");
     } finally {
       setIsSubmitting(false);
     }
@@ -171,7 +171,7 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Naam likho"
+              placeholder="Enter your name"
               autoComplete="off"
             />
             {errors.name && (
@@ -188,7 +188,7 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email daalo"
+              placeholder="Enter your email"
               autoComplete="off"
             />
             {errors.email && (
@@ -206,7 +206,7 @@ const Contact = () => {
               onChange={handleChange}
               onKeyPress={handleKeyPress}
               rows={3}
-              placeholder="Apna message yahan likho"
+              placeholder="Write your message here"
             />
             {errors.message && (
               <span className="mt-1 text-sm text-red-500">
@@ -220,7 +220,7 @@ const Contact = () => {
             disabled={isSubmitting}
             className="px-4 py-2 mt-4 text-white transition-all bg-black rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? "Bhej raha hoon..." : "Message Bhejo"}
+            {isSubmitting ? "Sending..." : "Send Message"}
           </button>
         </form>
       </div>

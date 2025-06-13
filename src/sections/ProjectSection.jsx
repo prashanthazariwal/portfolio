@@ -69,6 +69,23 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
       ],
       url: "https://two-good-co.vercel.app/",
     },
+    {
+      projectName: "KYC Hub",
+      title: "Product Comparison Interface",
+      discription:
+        "A dynamic product comparison platform built as part of a company assignment for KYC Hub. The app displays products using the Ant Design Table with features like sorting, pagination, and a Compare button. Users can add up to 4 products to a comparison page, where key features are shown side-by-side. Built with React Router for navigation and includes full functionality to clear all compared products, manage duplicates, and enhance user experience with responsive design. ",
+      tack: [
+        "react",
+        "javascript",
+        // "html",
+        // "css",
+        "tailwind-css",
+        "gsap",
+        // "Motion-for-react",
+        // "react-native",
+      ],
+      url: "https://kyc-hub-nine.vercel.app/",
+    },
   ];
 
   // Filter projects based on selected category
@@ -90,14 +107,33 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
         <SeeAllButton className={"dark:text-neutral-100"} text={"see all"} />
       </div>
       <motion.div ref={ref} className="w-full py-10 overflow-hidden ">
-        <Projects
-          projects={filteredProjects}
-          spliceValue={spliceValue}
-          setHovered={setHovered}
-          hovered={hovered}
-          opacity={opacity}
-          lineWidth={lineWidth}
-        />
+        {filteredProjects.length > 0 ? (
+          <Projects
+            projects={filteredProjects}
+            spliceValue={spliceValue}
+            setHovered={setHovered}
+            hovered={hovered}
+            opacity={opacity}
+            lineWidth={lineWidth}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <h3 className="mb-4 text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                Coming Soon!
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-400">
+                I'm working on some amazing projects in this category. Stay
+                tuned for updates!
+              </p>
+            </motion.div>
+          </div>
+        )}
       </motion.div>
     </>
   );

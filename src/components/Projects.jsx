@@ -81,7 +81,7 @@ const Projects = ({
                 {project.title}
               </motion.span>
             </motion.h2>
-            <div className="project-discription min-h-[15rem] flex flex-col gap-6 justify-between items-end py-2 w-full md:w-2/3">
+            <div className="project-discription min-h-[15rem] flex flex-col gap-10 justify-between items-end py-2 w-full md:w-2/3">
               <motion.div
                 animate={{
                   x: hovered === idx ? -4 : 0,
@@ -133,7 +133,7 @@ const Projects = ({
                   stiffness: 200,
                   damping: 20,
                 }}
-                className="z-10 w-full mb-6 text-sm font-medium text-justify font-Raleway text-neutral-600 dark:text-neutral-100 md:w-4/5"
+                className="z-10 w-full mb-6 text-sm font-semibold text-justify font-Raleway text-neutral-600 dark:text-neutral-100 md:w-4/5"
               >
                 {project.discription}
               </motion.p>
