@@ -136,7 +136,7 @@ const Work = () => {
           Projects
         </motion.h2>
       </div>
-      <h1 className="mb-8 text-3xl font-bold text-center font-Montserrat">
+      <h1 className="mb-8 text-xl font-bold text-center md:text-3xl font-Montserrat">
         Explore my Work
       </h1>
 

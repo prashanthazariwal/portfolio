@@ -13,13 +13,23 @@ import { Helmet } from "react-helmet-async";
 function App() {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   useScrollToTop();
+
+  useEffect(() => {
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
 
   useEffect(() => {
     // Simulate a loading delay (e.g., fetching data)
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 3700);
     return () => clearTimeout(timer);
   }, []);
 
@@ -89,7 +99,11 @@ function App() {
         />
       </Helmet>
       {loading && (
-        <div className="relative h-screen overflow-hidden">
+        <div
+          className={`relative h-screen overflow-hidden ${
+            isDarkMode ? "bg-neutral-900" : "bg-neutral-100"
+          }`}
+        >
           <div className="absolute top-0 right-0 flex flex-col items-center w-full h-screen gap-64 bg-black loader">
             <div className="w-full mt-4 overflow-hidden text-sm font-normal text-center text-white capitalize loader-top h-fit font-ComicReliefRegular">
               <h5>design portfolio</h5>

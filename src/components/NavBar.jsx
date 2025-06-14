@@ -65,8 +65,8 @@ const NavBar = () => {
         animate={{
           y: 0,
           opacity: 1,
-          width: windowWidth > 768 ? (scroll ? "60%" : "66.666667%") : "100%",
-        }}
+          width: windowWidth > 768 ? (scroll ? "65%" : "66.666667%") : "100%",
+        }} //66.666667
         transition={{
           duration: 0.3,
           ease: "easeInOut",
@@ -75,15 +75,15 @@ const NavBar = () => {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="z-50 items-center justify-center h-10 px-2 py-1 text-sm font-bold shadow-md nav bg-neutral-100 dark:bg-neutral-800 w-fit rounded-xl md:flex">
+        <div className="z-50 items-center justify-center px-2 py-1 text-xs font-bold border shadow-md h-9 dark:border-neutral-600 nav bg-neutral-100 dark:bg-neutral-800 w-fit rounded-xl md:flex">
           <NavLink
             to="home"
             aria-label="Home page"
             className={({ isActive }) => {
               return `${
                 isActive
-                  ? "nav text-sm font-bold text-neutral-900 dark:text-white"
-                  : "nav text-sm font-semibold text-neutral-600 dark:text-white"
+                  ? "nav text-xs font-bold text-neutral-900 dark:text-white"
+                  : "nav text-xs font-semibold text-neutral-600 dark:text-white"
               }`;
             }}
           >
@@ -109,7 +109,7 @@ const NavBar = () => {
             </motion.svg>
           </NavLink>
         </div>
-        <div className="flex w-fit justify-center bg-neutral-100 dark:bg-neutral-800 shadow-md font-Montserrat z-[999] bg-opacity-100 rounded-xl px-2 items-center gap-1">
+        <div className="flex w-fit justify-center border dark:border-neutral-600 bg-neutral-100 dark:bg-neutral-800 font-Montserrat shadow-md z-[999] bg-opacity-100 rounded-xl px-2 items-center gap-1">
           {[
             { to: "work" },
             { to: "about" },
@@ -133,7 +133,7 @@ const NavBar = () => {
                 {hovered == index && (
                   <motion.span
                     layoutId="nav-bg"
-                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-100 dark:bg-neutral-700"
+                    className="absolute inset-0 w-full h-full rounded-md bg-neutral-200 dark:bg-neutral-700"
                   ></motion.span>
                 )}
                 <motion.div
@@ -151,7 +151,7 @@ const NavBar = () => {
                     duration: 0.2,
                     ease: "easeInOut",
                   }}
-                  className="z-10 flex items-center justify-center w-full h-full py-2 capitalize text-neutral-900 dark:text-white"
+                  className="z-10 flex items-center justify-center w-full h-full py-2 font-semibold capitalize text-neutral-700 dark:text-white"
                 >
                   {elm.to.replace("#", "")}
                 </motion.div>
@@ -191,7 +191,7 @@ const NavBar = () => {
                     duration: 0.2,
                     ease: "easeInOut",
                   }}
-                  className="z-10 flex items-center justify-center w-full h-full py-2 capitalize text-neutral-900 dark:text-white"
+                  className="z-10 flex items-center justify-center w-full h-full py-2 capitalize text-neutral-700 dark:text-white"
                 >
                   {elm.to}
                 </motion.div>

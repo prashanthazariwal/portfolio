@@ -67,7 +67,7 @@ const ProjectSection = ({ selectedCategory = "all", spliceValue }) => {
         // "Motion-for-react",
         // "react-native",
       ],
-      url: "https://two-good-co.vercel.app/",
+      url: "https://awwarded-website-two-good-co-clone.vercel.app/",
     },
     {
       projectName: "KYC Hub",

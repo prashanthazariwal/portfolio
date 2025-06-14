@@ -116,7 +116,7 @@ const Projects = ({
                       className={`inline-block px-4 py-1 text-base font-medium border border-black rounded-full font-Raleway w-fit h-fit ${
                         isUsed
                           ? "bg-green-400/50 "
-                          : "text-black bg-transparent"
+                          : "text-black dark:text-neutral-500 bg-transparent"
                       }`}
                     >
                       {tech}
